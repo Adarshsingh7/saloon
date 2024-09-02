@@ -1,7 +1,12 @@
 /** @format */
+import Dashboard from "./pages/Dashboard";
 
 function App() {
-  return <div>App</div>;
+  return (
+    <div>
+      <Dashboard />
+    </div>
+  );
 }
 
 export default App;
