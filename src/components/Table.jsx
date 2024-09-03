@@ -4,7 +4,7 @@ function Table() {
   return (
     <div>
       <section>
-        <div className="flex justify-center items-center min-h-screen p-5">
+        <div className="flex justify-center items-center min-h-screen p-2">
           <div className="w-full max-w-7xl border border-gray-400 rounded-lg overflow-x-auto">
             {/* Header */}
             <div className="p-10 min-w-[1000px]">

@@ -28,7 +28,7 @@ const Header = () => {
           : ""
       }`}
     >
-      <div className="gap-x-12 items-center max-w-screen-3xl mx-auto px-2 md:flex md:px-6">
+      <div className="gap-x-4 items-center max-w-screen-3xl mx-auto px-2 md:flex md:px-6">
         <div className="flex w-[15%] items-center justify-between py-4 md:block">
           <h1 className="text-xl font-bold">RTQ Saloon</h1>
           <div className="md:hidden">
@@ -69,7 +69,7 @@ const Header = () => {
           </div>
         </div>
         <div
-          className={`flex w-full items-center justify-between mt-8 md:mt-0 md:flex ${
+          className={`flex w-full items-center justify-between mt-6 md:mt-0 md:flex ${
             state ? "block" : "hidden"
           } `}
         >
@@ -86,7 +86,7 @@ const Header = () => {
           </ul>
           {/* <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
           </div> */}
-          <div className="flex w-[40%] gap-x-6 mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
+          <div className="flex w-[30%] gap-x-4 mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
             <SearchBar />
           </div>
         </div>
