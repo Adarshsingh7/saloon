@@ -6,6 +6,7 @@ import { RiMoneyPoundCircleLine } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
 import { BsCartPlus } from "react-icons/bs";
 import { FaRegCircleUser } from "react-icons/fa6";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 export default function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -23,18 +24,26 @@ export default function Dashboard() {
           } bg-white flex flex-col justify-between transition-width duration-100 h-screen `}
         >
           <div>
-            <div>
+            {/* <div className="p-2 pl-4">
+              <RxHamburgerMenu fontSize={22} onClick={toggleSidebar} />
               <p>Saloon</p>
-            </div>
-            <nav className="md:mt-10 mt-5 ">
+            </div> */}
+            <nav className="md:mt-1 mt-2">
               <ul className="space-y-3">
+                <div onClick={toggleSidebar}>
+                  <SidebarItem
+                    isSidebarOpen={isSidebarOpen}
+                    icon={<RxHamburgerMenu size={25} />}
+                  >
+                    Collapse
+                  </SidebarItem>
+                </div>
                 <SidebarItem
                   isSidebarOpen={isSidebarOpen}
                   icon={<HiOutlineComputerDesktop size={25} />}
                 >
                   Dashboard
                 </SidebarItem>
-
                 <SidebarItem
                   isSidebarOpen={isSidebarOpen}
                   icon={<BsCartPlus size={25} />}
@@ -78,7 +87,6 @@ export default function Dashboard() {
             isSidebarOpen ? "hidden" : "block w-full"
           } h-screen overflow-x-auto`}
         >
-         
           {/* <div className="border border-dashed border-gray-400 rounded-md flex items-center justify-center  h-full">
           </div> */}
           <Table />
@@ -91,7 +99,11 @@ export default function Dashboard() {
 function SidebarItem({ isSidebarOpen, icon, children }) {
   return (
     <li>
-      <div className="group flex items-center px-3 py-2 text-sm text-gray-500 hover:bg-black hover:text-white rounded-lg justify-between cursor-pointer">
+      <div
+        className={`group flex items-center px-3 py-2 text-sm text-gray-500 ${
+          children === "Collapse" ? "" : "hover:bg-black hover:text-white"
+        }  rounded-lg justify-between cursor-pointer`}
+      >
         <span className="flex items-center">
           {icon}
           <span className={`${isSidebarOpen ? "block ml-3" : "hidden"}`}>
