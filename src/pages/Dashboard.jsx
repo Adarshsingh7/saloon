@@ -8,6 +8,141 @@ import { BsCartPlus } from "react-icons/bs";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { RxHamburgerMenu } from "react-icons/rx";
 
+const data = [
+  {
+    product: {
+      name: "Laptop",
+      category: "Electronics",
+      details: {
+        brand: "BrandA",
+        model: "X100",
+        price: 1200.99,
+      },
+    },
+    stock: {
+      quantity: 50,
+      warehouse: "WarehouseA",
+    },
+    supplier: {
+      name: "Tech Supplies Co.",
+      contact: {
+        phone: "987-654-3210",
+        email: "contact@techsupplies.com",
+      },
+    },
+  },
+  {
+    product: {
+      name: "Smartphone",
+      category: "Electronics",
+      details: {
+        brand: "BrandB",
+        model: "Y200",
+        price: 799.99,
+      },
+    },
+    stock: {
+      quantity: 200,
+      warehouse: "WarehouseB",
+    },
+    supplier: {
+      name: "Mobile World",
+      contact: {
+        phone: "555-123-4567",
+        email: "sales@mobileworld.com",
+      },
+    },
+  },
+  {
+    product: {
+      name: "Headphones",
+      category: "Accessories",
+      details: {
+        brand: "BrandC",
+        model: "Z300",
+        price: 150.49,
+      },
+    },
+    stock: {
+      quantity: 150,
+      warehouse: "WarehouseC",
+    },
+    supplier: {
+      name: "Audio Gear Inc.",
+      contact: {
+        phone: "321-654-0987",
+        email: "support@audiogear.com",
+      },
+    },
+  },
+  {
+    product: {
+      name: "Smartwatch",
+      category: "Wearables",
+      details: {
+        brand: "BrandD",
+        model: "W400",
+        price: 250.75,
+      },
+    },
+    stock: {
+      quantity: 75,
+      warehouse: "WarehouseA",
+    },
+    supplier: {
+      name: "Gadget Hub",
+      contact: {
+        phone: "456-789-0123",
+        email: "info@gadgethub.com",
+      },
+    },
+  },
+  {
+    product: {
+      name: "Tablet",
+      category: "Electronics",
+      details: {
+        brand: "BrandE",
+        model: "T500",
+        price: 899.99,
+      },
+    },
+    stock: {
+      quantity: 120,
+      warehouse: "WarehouseB",
+    },
+    supplier: {
+      name: "Tablet World",
+      contact: {
+        phone: "654-321-9876",
+        email: "contact@tabletworld.com",
+      },
+    },
+  },
+  {
+    product: {
+      name: "Camera",
+      category: "Photography",
+      details: {
+        brand: "BrandF",
+        model: "C600",
+        price: 1350.0,
+      },
+    },
+    stock: {
+      quantity: 30,
+      warehouse: "WarehouseC",
+    },
+    supplier: {
+      name: "Photo Supplies",
+      contact: {
+        phone: "789-012-3456",
+        email: "orders@photosupplies.com",
+      },
+    },
+  },
+];
+
 export default function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const toggleSidebar = () => {
@@ -89,7 +224,7 @@ export default function Dashboard() {
         >
           {/* <div className="border border-dashed border-gray-400 rounded-md flex items-center justify-center  h-full">
           </div> */}
-          <Table />
+          <Table data={data} />
         </main>
       </div>
     </section>
