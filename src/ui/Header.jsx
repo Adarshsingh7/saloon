@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
+import { IoSearchOutline } from "react-icons/io5";
+import { RiArrowDropDownLine } from "react-icons/ri";
 
 const Header = () => {
   const [state, setState] = useState(false);
 
   // Replace javascript:void(0) paths with your paths
   const navigation = [
-    { title: "Features", path: "javascript:void(0)" },
-    { title: "Integrations", path: "javascript:void(0)" },
-    { title: "Customers", path: "javascript:void(0)" },
-    { title: "Pricing", path: "javascript:void(0)" },
+    { title: "Features" },
+    { title: "Integrations" },
+    { title: "Customers" },
+    { title: "Pricing" },
   ];
 
   useEffect(() => {
@@ -26,16 +28,9 @@ const Header = () => {
           : ""
       }`}
     >
-      <div className="gap-x-14 items-center max-w-screen-xl mx-auto px-4 md:flex md:px-8">
+      <div className="gap-x-14 items-center max-w-screen-3xl mx-auto px-4 md:flex md:px-8">
         <div className="flex items-center justify-between py-5 md:block">
-          <a href="javascript:void(0)">
-            <img
-              src="https://www.floatui.com/logo.svg"
-              width={120}
-              height={50}
-              alt="Float UI logo"
-            />
-          </a>
+          <h1 className="text-xl font-bold">RTQ Saloon</h1>
           <div className="md:hidden">
             <button
               className="menu-btn text-gray-500 hover:text-gray-800"
@@ -89,31 +84,10 @@ const Header = () => {
               );
             })}
           </ul>
+          {/* <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
+          </div> */}
           <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
-            <a
-              href="javascript:void(0)"
-              className="block text-gray-700 hover:text-gray-900"
-            >
-              Log in
-            </a>
-            <a
-              href="javascript:void(0)"
-              className="flex items-center justify-center gap-x-1 py-2 px-4 text-white font-medium bg-gray-800 hover:bg-gray-700 active:bg-gray-900 rounded-full md:inline-flex"
-            >
-              Sign in
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="w-5 h-5"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </a>
+            <SearchBar />
           </div>
         </div>
       </div>
@@ -121,4 +95,90 @@ const Header = () => {
   );
 };
 
+function SearchBar() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("Customer");
+  const categories = ["customer", "product", "order", "payment"];
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setIsDropdownOpen(false);
+  };
+
+  return (
+    <form className="max-full mx-auto">
+      <div className="flex">
+        <label
+          className="mb-2 text-sm font-medium text-gray-900 sr-only"
+          htmlFor="search-dropdown"
+        >
+          Search
+        </label>
+        <button
+          className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 uppercase"
+          id="dropdown-button"
+          type="button"
+          onClick={toggleDropdown}
+        >
+          {selectedCategory}
+          <RiArrowDropDownLine />
+        </button>
+        {isDropdownOpen && (
+          <div
+            className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 absolute mt-10"
+            id="dropdown"
+          >
+            <ul
+              aria-labelledby="dropdown-button"
+              className="py-2 text-sm text-gray-700"
+            >
+              {categories.map((item, idx) => (
+                <SearchCategoryOption
+                  key={idx}
+                  onClick={() => handleCategorySelect(item)}
+                >
+                  {item}
+                </SearchCategoryOption>
+              ))}
+            </ul>
+          </div>
+        )}
+        <div className="relative w-full">
+          <input
+            className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+            id="search-dropdown"
+            placeholder={`Search ${selectedCategory}...`}
+            required
+            type="search"
+          />
+          <button
+            className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
+            type="submit"
+          >
+            <IoSearchOutline />
+            <span className="sr-only">Search</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  );
+}
+
+function SearchCategoryOption({ children, onClick }) {
+  return (
+    <li>
+      <button
+        className="inline-flex w-full px-4 py-2 hover:bg-gray-100 uppercase"
+        type="button"
+        onClick={onClick}
+      >
+        {children}
+      </button>
+    </li>
+  );
+}
 export default Header;
