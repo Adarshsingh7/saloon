@@ -46,7 +46,7 @@ const Table = ({ data }) => {
       return {
         id: "action",
         header: "Actions",
-        size: 10,
+        // size: 100,
         Cell: ({ row }) => (
           <button onClick={() => alert(JSON.stringify(row.original))}>
             Edit
