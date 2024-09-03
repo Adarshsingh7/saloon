@@ -121,9 +121,11 @@ const Example = () => {
   const table = useMaterialReactTable({
     columns,
     data,
-    enableColumnFilter: false, // Disable per-column filtering
-    enableGlobalFilter: false, // Disable global search
-    enableColumnActions: false, // Disable per-column actions
+    enableColumnFilter: false,
+    enableGlobalFilter: false,
+    enableColumnActions: false,
+    enableDensityToggle: false,
+    enableFullScreenToggle: false,
   });
 
   return <MaterialReactTable table={table} />;
