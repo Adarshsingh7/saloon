@@ -22,14 +22,14 @@ const Header = () => {
 
   return (
     <nav
-      className={`bg-white pb-5 md:text-sm ${
+      className={`bg-white pb-2 md:text-sm ${
         state
           ? "shadow-lg rounded-xl border mx-2 mt-2 md:shadow-none md:border-none md:mx-2 md:mt-0"
           : ""
       }`}
     >
-      <div className="gap-x-14 items-center max-w-screen-3xl mx-auto px-4 md:flex md:px-8">
-        <div className="flex items-center justify-between py-5 md:block">
+      <div className="gap-x-12 items-center max-w-screen-3xl mx-auto px-2 md:flex md:px-6">
+        <div className="flex w-[15%] items-center justify-between py-4 md:block">
           <h1 className="text-xl font-bold">RTQ Saloon</h1>
           <div className="md:hidden">
             <button
@@ -69,7 +69,7 @@ const Header = () => {
           </div>
         </div>
         <div
-          className={`flex-1 items-center mt-8 md:mt-0 md:flex ${
+          className={`flex w-full items-center justify-between mt-8 md:mt-0 md:flex ${
             state ? "block" : "hidden"
           } `}
         >
@@ -86,7 +86,7 @@ const Header = () => {
           </ul>
           {/* <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
           </div> */}
-          <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
+          <div className="flex w-[40%] gap-x-6 mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
             <SearchBar />
           </div>
         </div>
@@ -110,8 +110,8 @@ function SearchBar() {
   };
 
   return (
-    <form className="max-full mx-auto">
-      <div className="flex">
+    <form className="max-full w-full">
+      <div className="flex w-full">
         <label
           className="mb-2 text-sm font-medium text-gray-900 sr-only"
           htmlFor="search-dropdown"
