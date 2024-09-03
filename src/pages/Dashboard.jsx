@@ -78,7 +78,7 @@ export default function Dashboard() {
             isSidebarOpen ? "hidden" : "block w-full"
           } h-screen overflow-x-auto`}
         >
-          <header>Header</header>
+         
           {/* <div className="border border-dashed border-gray-400 rounded-md flex items-center justify-center  h-full">
           </div> */}
           <Table />
