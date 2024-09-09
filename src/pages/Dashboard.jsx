@@ -7,6 +7,8 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { BsCartPlus } from "react-icons/bs";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { getAllUserProfiles } from "../service/operations/userProfileApi";
+import { useDispatch, useSelector } from "react-redux";
 
 const data = [
   {
@@ -145,10 +147,15 @@ const data = [
 
 export default function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const handleCustomerClick = () => {
+    dispatch(getAllUserProfiles(token));
+  };
   return (
     <section>
       <div className="flex md:min-h-screen">
@@ -189,8 +196,9 @@ export default function Dashboard() {
                 <SidebarItem
                   isSidebarOpen={isSidebarOpen}
                   icon={<MdAccountCircle size={25} />}
+                  onClick={handleCustomerClick}
                 >
-                  Curstomer
+                  Customer
                 </SidebarItem>
 
                 <SidebarItem
@@ -231,13 +239,14 @@ export default function Dashboard() {
   );
 }
 
-function SidebarItem({ isSidebarOpen, icon, children }) {
+function SidebarItem({ isSidebarOpen, icon, children, onClick }) {
   return (
     <li>
       <div
         className={`group flex items-center px-3 py-2 text-sm text-gray-500 ${
           children === "Collapse" ? "" : "hover:bg-black hover:text-white"
         }  rounded-lg justify-between cursor-pointer`}
+        onClick={onClick}
       >
         <span className="flex items-center">
           {icon}

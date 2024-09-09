@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { logout } from "../service/operations/authApi";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import LogoImg from "../assests/SalonLogoImg.png";
 
 const Header = () => {
   const [state, setState] = useState(false);
+  const { token } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Replace javascript:void(0) paths with your paths
   const navigation = [
-    { title: "Features" },
-    { title: "Integrations" },
+    // { title: "Features" },
+    // { title: "Integrations" },
     { title: "Customers" },
     { title: "Pricing" },
   ];
@@ -29,8 +36,11 @@ const Header = () => {
       }`}
     >
       <div className="gap-x-4 items-center max-w-screen-3xl mx-auto px-2 md:flex md:px-6">
-        <div className="flex w-[15%] items-center justify-between py-4 md:block">
-          <h1 className="text-xl font-bold">RTQ Saloon</h1>
+        <div className="flex w-[15%] items-center justify-between py-2 md:block">
+          <div className="flex items-center justify-start">
+            <img src={LogoImg} className="flex h-12 w-12" alt="logoImg" />
+            <span className="text-black font-bold text-xl">Salon</span>
+          </div>
           <div className="md:hidden">
             <button
               className="menu-btn text-gray-500 hover:text-gray-800"
@@ -68,28 +78,41 @@ const Header = () => {
             </button>
           </div>
         </div>
-        <div
-          className={`flex w-full items-center justify-between mt-6 md:mt-0 md:flex ${
-            state ? "block" : "hidden"
-          } `}
-        >
-          <ul className="justify-center items-center space-y-6 md:flex md:space-x-6 md:space-y-0">
-            {navigation.map((item, idx) => {
-              return (
-                <li key={idx} className="text-gray-700 hover:text-gray-900">
-                  <a href={item.path} className="block">
-                    {item.title}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-          {/* <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
+
+        {token ? (
+          <div
+            className={`flex w-full items-center justify-between mt-6 md:mt-0 md:flex ${
+              state ? "block" : "hidden"
+            } `}
+          >
+            <ul className="justify-center items-center space-y-6 md:flex md:space-x-6 md:space-y-0">
+              {navigation.map((item, idx) => {
+                return (
+                  <li key={idx} className="text-gray-700 hover:text-gray-900">
+                    <a href={item.path} className="block">
+                      {item.title}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+            {/* <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
           </div> */}
-          <div className="flex w-[30%] gap-x-4 mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
-            <SearchBar />
+            <div className="flex w-[30%] gap-x-4 mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
+              <SearchBar />
+              <button
+                className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg uppercase text-sm"
+                onClick={() => {
+                  dispatch(logout(navigate));
+                }}
+              >
+                logout
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <></>
+        )}
       </div>
     </nav>
   );
@@ -156,7 +179,7 @@ function SearchBar() {
             type="search"
           />
           <button
-            className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
+            className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-600 rounded-e-lg border border-blue-700 hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300"
             type="submit"
           >
             <IoSearchOutline />

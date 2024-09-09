@@ -46,7 +46,7 @@ const Table = ({ data }) => {
       return {
         id: "action",
         header: "Actions",
-        // size: 100,
+        size: 100,
         Cell: ({ row }) => (
           <button onClick={() => alert(JSON.stringify(row.original))}>
             Edit
@@ -58,6 +58,7 @@ const Table = ({ data }) => {
     return {
       accessorKey: accessorKeys[index],
       header: field,
+      size: 150,
     };
   });
 
