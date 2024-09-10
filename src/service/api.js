@@ -30,20 +30,11 @@ export const userProfileEndpoints = {
 
 export const productEndpoints = {
   GET_ALL_PRODUCT_API: BASE_URL + "/product",
-};
-
-export const productTransactionEndpoints = {
   GET_ALL_PRODUCT_TRANSACTION_API: BASE_URL + "/productTransaction",
 };
 
-export const serviceTransactionEndpoints = {
-  GET_ALL_SERVICE_TRANSACTION_API: BASE_URL + "/serviceTransaction",
-};
-
 export const serviceEndpoints = {
+  GET_ALL_SERVICE_TRANSACTION_API: BASE_URL + "/serviceTransaction",
   GET_ALL_SERVICE_API: BASE_URL + "/service",
-};
-
-export const serviceUsagesEndpoints = {
   GET_ALL_SERVICE_USAGES_API: BASE_URL + "/serviceUsage",
 };

@@ -83,7 +83,7 @@ export function login(userName, password, navigate) {
       if (response.status !== 200) {
         throw new Error(response.data);
       }
-      
+
       toast.success("Login Successfully");
       dispatch(setToken(response.data.token));
       const userImage = response.data?.data?.user?.user_profile?.avatar
@@ -110,5 +110,104 @@ export function logout(navigate) {
     localStorage.removeItem("user");
     toast.success("Logged Out");
     navigate("/login");
+  };
+}
+
+export function updatePassword(
+  currentPassword,
+  newPassword,
+  passwordConfirm,
+  token,
+  navigate
+) {
+  return async (dispatch) => {
+    const toastId = toast.loading("Updating password...");
+    dispatch(setLoading(true));
+
+    try {
+      const response = await apiConnector(
+        "PATCH",
+        UPDATE_PASSWORD_API,
+        {
+          currentPassword,
+          newPassword,
+          passwordConfirm,
+        },
+        {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        }
+      );
+
+      console.log("UPDATE PASSWORD RESPONSE.....", response);
+
+      if (response.status !== 200) {
+        throw new Error("Couldn't update your password");
+      }
+
+      toast.success("Password has been updated successfully");
+      navigate("/");
+    } catch (error) {
+      console.log("UPDATE PASSWORD ERROR", error);
+      toast.error("Failed to update password");
+    }
+    toast.dismiss(toastId);
+    dispatch(setLoading(false));
+  };
+}
+
+export function resetPassword(password, token, navigate) {
+  return async (dispatch) => {
+    const toastId = toast.loading("Loading...");
+    dispatch(setLoading(true));
+
+    try {
+      const response = await apiConnector(
+        "PATCH",
+        `${RESET_PASSWORD_API}/${token}`,
+        { password }
+      );
+      console.log("RESET PASSWORD RESPONSE.....", response);
+
+      if (response.status !== 200) {
+        throw new Error("Couldn't reset your password");
+      }
+
+      toast.success("Password has been reset successfully");
+      navigate("/login");
+    } catch (error) {
+      console.log("RESET PASSWORD ERROR", error);
+      toast.error("Failed to Reset Password");
+    }
+    toast.dismiss(toastId);
+    dispatch(setLoading(false));
+  };
+}
+
+export function forgotPassword(email, navigate) {
+  return async (dispatch) => {
+    const toastId = toast.loading("Loading...");
+    dispatch(setLoading(true));
+
+    try {
+      const response = await apiConnector("POST", FORGET_PASSWORD_API, {
+        email,
+      });
+
+      console.log("FORGOT PASSWORD RESPONSE.....", response);
+
+      if (response.status !== 200) {
+        throw new Error("Failed to send reset password email");
+      }
+
+      toast.success("Reset password link has been sent to your email");
+      navigate("/"); // Redirect to home or login page
+    } catch (error) {
+      console.log("FORGOT PASSWORD ERROR", error);
+      toast.error("Failed to send reset password email");
+    }
+
+    toast.dismiss(toastId);
+    dispatch(setLoading(false));
   };
 }

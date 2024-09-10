@@ -38,6 +38,7 @@ export const createUserProfile = async (token, data) => {
     toast.dismiss(toastId);
   };
 };
+
 export const getAllUserProfiles = async (token) => {
   const toastId = toast.loading("Loading...");
   let result = [];
@@ -107,17 +108,18 @@ export const deleteUserProfile = async (token, userId) => {
   try {
     const response = await apiConnector(
       "DELETE",
-      GET_ALL_USER_PROFILE_API + `${userId}`,
+      `${GET_ALL_USER_PROFILE_API}/${userId}`,
+      null,
       {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       }
     );
     console.log("Delete user profile response....", response);
-    if (response.status !== 200)
+    if (response.status !== 204)
       throw new Error("Could not delete user profile");
     toast.success("User profile deleted successfully");
-    result = response.data?.data;
+    result = true;
   } catch (error) {
     console.log("Delete user profile error", error);
     toast.error(error.message);
