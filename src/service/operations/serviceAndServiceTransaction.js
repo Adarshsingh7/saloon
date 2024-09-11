@@ -135,6 +135,7 @@ export const getAllServiceTransactions = async (token) => {
       null,
       {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       }
     );
     if (response.status !== 200)

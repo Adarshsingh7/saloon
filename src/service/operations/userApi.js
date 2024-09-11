@@ -146,6 +146,10 @@ export const getTotalSales = async (token) => {
     });
     console.log("Get Total Sales Api Response..", response);
     if (response.status !== 200) throw new Error("Could not fetch Total Sales");
+    // result = [
+    //   ...response.data?.data?.allProductTransaction,
+    //   ...response.data?.data?.allServiceTransaction,
+    // ];
     result = response.data?.data;
   } catch (error) {
     console.log("Get Total Sales Api Error", error);

@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const serviceSlice = createSlice({
-  name: "services",
+  name: "service",
   initialState: initialState,
   reducers: {
     setLoading: (state, action) => {
@@ -50,6 +50,5 @@ export const {
   addService,
   updateService,
   removeService,
-  setError,
 } = serviceSlice.actions;
 export default serviceSlice.reducer;

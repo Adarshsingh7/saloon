@@ -6,156 +6,187 @@ import { RiMoneyPoundCircleLine } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
 import { BsCartPlus } from "react-icons/bs";
 import { FaRegCircleUser } from "react-icons/fa6";
+import { MdOutlineMiscellaneousServices } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { getAllUserProfiles } from "../service/operations/userProfileApi";
 import { useDispatch, useSelector } from "react-redux";
+import { getTotalSales } from "../service/operations/userApi";
 
-const data = [
-  {
-    product: {
-      name: "Laptop",
-      category: "Electronics",
-      details: {
-        brand: "BrandA",
-        model: "X100",
-        price: 1200.99,
+const initialData = {
+  dashboard: [
+    {
+      product: {
+        name: "Laptop",
+        category: "Electronics",
+        details: {
+          brand: "BrandA",
+          model: "X100",
+          price: 1200.99,
+        },
+      },
+      stock: {
+        quantity: 50,
+        warehouse: "WarehouseA",
+      },
+      supplier: {
+        name: "Tech Supplies Co.",
+        contact: {
+          phone: "987-654-3210",
+          email: "contact@techsupplies.com",
+        },
       },
     },
-    stock: {
-      quantity: 50,
-      warehouse: "WarehouseA",
-    },
-    supplier: {
-      name: "Tech Supplies Co.",
-      contact: {
-        phone: "987-654-3210",
-        email: "contact@techsupplies.com",
+    {
+      product: {
+        name: "Smartphone",
+        category: "Electronics",
+        details: {
+          brand: "BrandB",
+          model: "Y200",
+          price: 799.99,
+        },
+      },
+      stock: {
+        quantity: 200,
+        warehouse: "WarehouseB",
+      },
+      supplier: {
+        name: "Mobile World",
+        contact: {
+          phone: "555-123-4567",
+          email: "sales@mobileworld.com",
+        },
       },
     },
-  },
-  {
-    product: {
-      name: "Smartphone",
-      category: "Electronics",
-      details: {
-        brand: "BrandB",
-        model: "Y200",
-        price: 799.99,
+    {
+      product: {
+        name: "Headphones",
+        category: "Accessories",
+        details: {
+          brand: "BrandC",
+          model: "Z300",
+          price: 150.49,
+        },
+      },
+      stock: {
+        quantity: 150,
+        warehouse: "WarehouseC",
+      },
+      supplier: {
+        name: "Audio Gear Inc.",
+        contact: {
+          phone: "321-654-0987",
+          email: "support@audiogear.com",
+        },
       },
     },
-    stock: {
-      quantity: 200,
-      warehouse: "WarehouseB",
-    },
-    supplier: {
-      name: "Mobile World",
-      contact: {
-        phone: "555-123-4567",
-        email: "sales@mobileworld.com",
+    {
+      product: {
+        name: "Smartwatch",
+        category: "Wearables",
+        details: {
+          brand: "BrandD",
+          model: "W400",
+          price: 250.75,
+        },
+      },
+      stock: {
+        quantity: 75,
+        warehouse: "WarehouseA",
+      },
+      supplier: {
+        name: "Gadget Hub",
+        contact: {
+          phone: "456-789-0123",
+          email: "info@gadgethub.com",
+        },
       },
     },
-  },
-  {
-    product: {
-      name: "Headphones",
-      category: "Accessories",
-      details: {
-        brand: "BrandC",
-        model: "Z300",
-        price: 150.49,
+    {
+      product: {
+        name: "Tablet",
+        category: "Electronics",
+        details: {
+          brand: "BrandE",
+          model: "T500",
+          price: 899.99,
+        },
+      },
+      stock: {
+        quantity: 120,
+        warehouse: "WarehouseB",
+      },
+      supplier: {
+        name: "Tablet World",
+        contact: {
+          phone: "654-321-9876",
+          email: "contact@tabletworld.com",
+        },
       },
     },
-    stock: {
-      quantity: 150,
-      warehouse: "WarehouseC",
-    },
-    supplier: {
-      name: "Audio Gear Inc.",
-      contact: {
-        phone: "321-654-0987",
-        email: "support@audiogear.com",
+    {
+      product: {
+        name: "Camera",
+        category: "Photography",
+        details: {
+          brand: "BrandF",
+          model: "C600",
+          price: 1350.0,
+        },
+      },
+      stock: {
+        quantity: 30,
+        warehouse: "WarehouseC",
+      },
+      supplier: {
+        name: "Photo Supplies",
+        contact: {
+          phone: "789-012-3456",
+          email: "orders@photosupplies.com",
+        },
       },
     },
-  },
-  {
-    product: {
-      name: "Smartwatch",
-      category: "Wearables",
-      details: {
-        brand: "BrandD",
-        model: "W400",
-        price: 250.75,
-      },
-    },
-    stock: {
-      quantity: 75,
-      warehouse: "WarehouseA",
-    },
-    supplier: {
-      name: "Gadget Hub",
-      contact: {
-        phone: "456-789-0123",
-        email: "info@gadgethub.com",
-      },
-    },
-  },
-  {
-    product: {
-      name: "Tablet",
-      category: "Electronics",
-      details: {
-        brand: "BrandE",
-        model: "T500",
-        price: 899.99,
-      },
-    },
-    stock: {
-      quantity: 120,
-      warehouse: "WarehouseB",
-    },
-    supplier: {
-      name: "Tablet World",
-      contact: {
-        phone: "654-321-9876",
-        email: "contact@tabletworld.com",
-      },
-    },
-  },
-  {
-    product: {
-      name: "Camera",
-      category: "Photography",
-      details: {
-        brand: "BrandF",
-        model: "C600",
-        price: 1350.0,
-      },
-    },
-    stock: {
-      quantity: 30,
-      warehouse: "WarehouseC",
-    },
-    supplier: {
-      name: "Photo Supplies",
-      contact: {
-        phone: "789-012-3456",
-        email: "orders@photosupplies.com",
-      },
-    },
-  },
-];
+  ],
+  // Add other tabs' default data here...
+  customers: [],
+  sales: [],
+  products: [],
+  services: [],
+  settings: [],
+};
 
 export default function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [activeTab, setActiveTab] = useState("dashboard");
+  const [data, setData] = useState(initialData[activeTab]);
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const handleCustomerClick = () => {
-    dispatch(getAllUserProfiles(token));
+  const handleTabChange = async (tab) => {
+    setActiveTab(tab);
+    if (tab === "dashboard") {
+    }
+    if (tab === "products") {
+    }
+    if (tab === "customers") {
+      const response = await getAllUserProfiles(token);
+      console.log(response.data);
+      setData(response.data);
+    }
+    if (tab === "sales") {
+      const response = await getTotalSales(token);
+      console.log(response);
+      setData(response);
+    }
+    if (tab === "services") {
+    }
+    setData(initialData[tab]);
   };
+
   return (
     <section>
       <div className="flex md:min-h-screen">
@@ -183,36 +214,56 @@ export default function Dashboard() {
                 <SidebarItem
                   isSidebarOpen={isSidebarOpen}
                   icon={<HiOutlineComputerDesktop size={25} />}
+                  onClick={() => handleTabChange("dashboard")}
+                  isActive={activeTab === "dashboard"}
                 >
                   Dashboard
                 </SidebarItem>
                 <SidebarItem
                   isSidebarOpen={isSidebarOpen}
                   icon={<BsCartPlus size={25} />}
+                  onClick={() => handleTabChange("products")}
+                  isActive={activeTab === "products"}
                 >
-                  Product
+                  Products
                 </SidebarItem>
 
                 <SidebarItem
                   isSidebarOpen={isSidebarOpen}
                   icon={<MdAccountCircle size={25} />}
-                  onClick={handleCustomerClick}
+                  onClick={() => handleTabChange("customers")}
+                  isActive={activeTab === "customers"}
                 >
-                  Customer
+                  Customers
                 </SidebarItem>
 
                 <SidebarItem
                   isSidebarOpen={isSidebarOpen}
                   icon={<RiMoneyPoundCircleLine size={25} />}
+                  onClick={() => handleTabChange("sales")}
+                  isActive={activeTab === "sales"}
                 >
-                  Income
+                  Sales
                 </SidebarItem>
 
                 <SidebarItem
                   isSidebarOpen={isSidebarOpen}
-                  icon={<IoSettingsOutline size={25} />}
+                  icon={<MdOutlineMiscellaneousServices size={25} />}
+                  onClick={() => handleTabChange("services")}
+                  isActive={activeTab === "services"}
                 >
-                  Subscription
+                  Services
+                </SidebarItem>
+                <SidebarItem
+                  isSidebarOpen={isSidebarOpen}
+                  icon={<IoSettingsOutline size={25} />}
+                  onClick={() => {
+                    setActiveTab("settings");
+                    console.log("settings are clicked");
+                  }}
+                  isActive={activeTab === "settings"}
+                >
+                  Settings
                 </SidebarItem>
               </ul>
             </nav>
@@ -239,13 +290,15 @@ export default function Dashboard() {
   );
 }
 
-function SidebarItem({ isSidebarOpen, icon, children, onClick }) {
+function SidebarItem({ isSidebarOpen, icon, children, onClick, isActive }) {
   return (
     <li>
       <div
-        className={`group flex items-center px-3 py-2 text-sm text-gray-500 ${
-          children === "Collapse" ? "" : "hover:bg-black hover:text-white"
-        }  rounded-lg justify-between cursor-pointer`}
+        className={`group flex items-center px-3 py-2 text-sm rounded-lg justify-between cursor-pointer ${
+          isActive
+            ? "bg-black text-white"
+            : "text-gray-500 hover:bg-gray-200 hover:text-black"
+        }`}
         onClick={onClick}
       >
         <span className="flex items-center">
