@@ -76,7 +76,7 @@ export const getUserById = async (token, userId) => {
       "Content-Type": "application/json",
     });
     console.log("Get User Api Response..", response);
-    if (response.status !== 200) throw new Error("Could not update User");
+    if (response.status !== 200) throw new Error("Could not fetch User");
     toast.success("User fetch successfully");
     result = response.data?.data;
   } catch (error) {
@@ -87,14 +87,14 @@ export const getUserById = async (token, userId) => {
   return result;
 };
 
-export const updateUser = async (token, userId) => {
+export const updateUser = async (token, userId, data) => {
   const toastId = toast.loading("Loading...");
   let result = null;
   try {
     const response = await apiConnector(
       "PATCH",
       `${USER_API}/${userId}`,
-      null,
+      data,
       {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -126,11 +126,11 @@ export const deleteUser = async (token, userId) => {
       }
     );
     console.log("Delete User Api Response..", response);
-    if (response.status !== 204) throw new Error("Could not update User");
+    if (response.status !== 204) throw new Error("Could not delete User");
     toast.success("User deleted successfully");
     result = true;
   } catch (error) {
-    console.log("delete User Api Error", error);
+    console.log("Delete User Api Error...", error);
     toast.error(error.message);
   }
   toast.dismiss(toastId);
